@@ -1,0 +1,18 @@
+name: KorraContexts
+version: '1.0-SNAPSHOT'
+main: me.unprankable.korraContexts.KorraContexts
+api-version: '1.21'
+depend: [ProjectKorra, LuckPerms]
+commands:
+  korraContexts:
+    description: Main command for KorraContexts plugin.
+    usage: /korraContexts
+    aliases: [kc]
+  permissions:
+    korraContexts.admin:
+      description: Allows access to admin commands for KorraContexts.
+      default: op
+prefix: KorraContexts
+authors: [ Unprankable ]
+description: Projectkorra side plugin that adds luckperms contexts.
+website: unprankable.bendinghub.net
