@@ -1,6 +1,8 @@
 package me.unprankable.korraContexts;
 
 import org.bukkit.Bukkit;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 import me.unprankable.korraContexts.hooks.LuckPermsHook;
 
@@ -36,5 +38,19 @@ public final class KorraContexts extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+    }
+
+    @Override
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (command.getName().equalsIgnoreCase("korracontexts")) {
+            sender.sendMessage("§6=== KorraContexts Info ===");
+            sender.sendMessage("§bVersion: §f" + this.getDescription().getVersion());
+            sender.sendMessage("§bDescription: §f" + this.getDescription().getDescription());
+            sender.sendMessage("§bAuthors: §f" + String.join(", ", this.getDescription().getAuthors()));
+            sender.sendMessage("§bWebsite: §f" + this.getDescription().getWebsite());
+            sender.sendMessage("§6==========================");
+            return true;
+        }
+        return false;
     }
 }

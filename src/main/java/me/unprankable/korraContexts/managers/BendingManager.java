@@ -2,6 +2,7 @@ package me.unprankable.korraContexts.managers;
 
 import com.projectkorra.projectkorra.BendingPlayer;
 import com.projectkorra.projectkorra.Element;
+import com.projectkorra.projectkorra.GeneralMethods;
 import com.projectkorra.projectkorra.ability.CoreAbility;
 import com.projectkorra.projectkorra.util.Cooldown;
 import org.bukkit.entity.Player;
@@ -126,6 +127,11 @@ public class BendingManager {
                 .filter(bPlayer::isOnCooldown)
                 .collect(Collectors.toList());
         return cooldowns;
+    }
+    public static List<String> isRegionProtected(Player player) {
+        BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(player);
+        if (bPlayer == null) return List.of();
+        return List.of(String.valueOf(GeneralMethods.isRegionProtectedFromBuild(player, player.getLocation())));
     }
 }
 
