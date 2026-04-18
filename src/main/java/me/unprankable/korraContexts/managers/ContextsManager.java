@@ -2,8 +2,11 @@ package me.unprankable.korraContexts.managers;
 
 import com.projectkorra.projectkorra.Element;
 import com.projectkorra.projectkorra.ability.CoreAbility;
+import me.unprankable.korraContexts.AddonContextLoader;
+import me.unprankable.korraContexts.KorraContexts;
 import org.bukkit.entity.Player;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -46,9 +49,34 @@ contexts.add("KorraContexts:cooldown");*/
         new Context("isRegionProtected", player -> {
             return BendingManager.isRegionProtected(player);
         }, List.of("true", "false"));
-
+        registerAddonContexts("/contexts");
     }
-    public class Context {
+
+    public static void registerAddonContexts(final String folder){
+        final KorraContexts plugin = KorraContexts.plugin;
+        final File path = new File(plugin.getDataFolder().toString() + folder);
+        if (!path.exists()){
+            path.mkdir();
+        }
+        final AddonContextLoader<Context> contextLoader = new AddonContextLoader<Context>(plugin, path);
+        final List<Context> loadedContexts = contextLoader.load(Context.class, Context.class);
+
+        for (final Context context : loadedContexts) {
+            if (context == null) {
+                KorraContexts.log.warning("Failed to load context from " + context.getClass().getName() + " as it is null");
+                continue;
+            }
+            final Context loadedContext = (Context) context;
+            final String key = loadedContext.getKey();
+
+            if (key == null || key.equals("KorraContexts:")) {
+                KorraContexts.log.warning("Failed to load context from " + context.getClass().getName() + " as it does not have a valid key");
+            }
+        }
+    }
+
+
+    public static class Context {
         private final List<String> possible;
         private String key;
         private Function<Player, List<String>> calculate;

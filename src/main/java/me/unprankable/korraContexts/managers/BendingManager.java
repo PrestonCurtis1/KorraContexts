@@ -3,8 +3,10 @@ package me.unprankable.korraContexts.managers;
 import com.projectkorra.projectkorra.BendingPlayer;
 import com.projectkorra.projectkorra.Element;
 import com.projectkorra.projectkorra.GeneralMethods;
+import com.projectkorra.projectkorra.ability.Ability;
 import com.projectkorra.projectkorra.ability.CoreAbility;
 import com.projectkorra.projectkorra.util.Cooldown;
+import me.unprankable.korraContexts.KorraContexts;
 import org.bukkit.entity.Player;
 
 import java.util.*;
@@ -109,13 +111,11 @@ public class BendingManager {
     }
     public static List<String> activeAbilities(Player player) {
         List<String> active = new ArrayList<>();
-        BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(player);
-        if (bPlayer == null) return List.of();
-        List<CoreAbility> activeAbilities = CoreAbility.getAbilities();
-        for (CoreAbility ability : activeAbilities) {
-            if (ability == null) continue;
-            String abilityName = ability.getName();
-            active.add(abilityName);
+        for (CoreAbility ability : CoreAbility.getAbilitiesByInstances()) {
+            Player abilityPlayer = ability.getPlayer();
+            if (abilityPlayer != null || abilityPlayer.getUniqueId().equals(player.getUniqueId())){
+                active.add(ability.getName());
+            }
         }
         return active;
     }
