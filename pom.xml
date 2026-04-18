@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>me.unprankable</groupId>
-    <artifactId>KorraContexts</artifactId>
-    <version>1.0.0</version>
+    <artifactId>korracontexts</artifactId>
+    <version>1.0.1</version>
     <packaging>jar</packaging>
 
     <name>KorraContexts</name>
