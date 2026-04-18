@@ -10,6 +10,13 @@
     <packaging>jar</packaging>
 
     <name>KorraContexts</name>
+    <url>https://github.com/PrestonCurtis1/KorraContexts</url>
+
+    <scm>
+        <url>https://github.com/PrestonCurtis1/KorraContexts</url>
+        <connection>scm:git:git://github.com/PrestonCurtis1/KorraContexts.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/PrestonCurtis1/KorraContexts.git</developerConnection>
+    </scm>
 
     <properties>
         <java.version>21</java.version>
@@ -60,6 +67,14 @@
             <url>https://repo.projectkorra.com/repository/maven-public/</url>
         </repository>
     </repositories>
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/PrestonCurtis1/KorraContexts</url>
+        </repository>
+    </distributionManagement>
 
     <dependencies>
         <dependency>
