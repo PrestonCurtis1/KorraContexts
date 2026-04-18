@@ -34,19 +34,13 @@ contexts.add("KorraContexts:cooldown");*/
         new Context("ability", player -> {
             return BendingManager.boundAbilities(player);
         }, CoreAbility.getAbilities().stream().map(CoreAbility::getName).collect(Collectors.toList()));
-        new Context("canBind", player -> {
-            return BendingManager.bindableAbilities(player);
-        }, CoreAbility.getAbilities().stream().map(CoreAbility::getName).collect(Collectors.toList()));
-        new Context("canBend", player -> {
-            return BendingManager.bendableAbilities(player);
-        }, CoreAbility.getAbilities().stream().map(CoreAbility::getName).collect(Collectors.toList()));
         new Context("active", player -> {
             return BendingManager.activeAbilities(player);
         }, CoreAbility.getAbilities().stream().map(CoreAbility::getName).collect(Collectors.toList()));
         new Context("cooldown", player -> {
             return BendingManager.cooldownAbilities(player);
         }, CoreAbility.getAbilities().stream().map(CoreAbility::getName).collect(Collectors.toList()));
-        new Context("isRegionProtected", player -> {
+        new Context("isregionprotected", player -> {
             return BendingManager.isRegionProtected(player);
         }, List.of("true", "false"));
         registerAddonContexts("/contexts");

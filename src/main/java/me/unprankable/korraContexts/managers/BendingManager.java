@@ -2,11 +2,10 @@ package me.unprankable.korraContexts.managers;
 
 import com.projectkorra.projectkorra.BendingPlayer;
 import com.projectkorra.projectkorra.Element;
-import com.projectkorra.projectkorra.GeneralMethods;
-import com.projectkorra.projectkorra.ability.Ability;
 import com.projectkorra.projectkorra.ability.CoreAbility;
+import com.projectkorra.projectkorra.region.RegionProtection;
 import com.projectkorra.projectkorra.util.Cooldown;
-import me.unprankable.korraContexts.KorraContexts;
+import me.unprankable.korraContexts.hooks.LuckPermsHook;
 import org.bukkit.entity.Player;
 
 import java.util.*;
@@ -84,36 +83,11 @@ public class BendingManager {
         }
         return List.copyOf(abilities);
     }
-
-    public static List<String> bindableAbilities(Player player) {
-        List<String> bindable = new ArrayList<>();
-        BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(player);
-        for (String abilityName : bindable) {
-            CoreAbility ability = CoreAbility.getAbility(abilityName);
-            if (bPlayer.canBind(ability)) {
-                bindable.add(abilityName);
-            }
-        }
-        return bindable;
-    }
-    public static List<String> bendableAbilities(Player player) {
-        List<String> bendable = new ArrayList<>();
-        BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(player);
-        if (bPlayer == null) return List.of();
-        for (String abilityName : bendable) {
-            CoreAbility ability = CoreAbility.getAbility(abilityName);
-            if(ability == null) continue;
-            if (bPlayer.canBend(ability)) {
-                bendable.add(abilityName);
-            }
-        }
-        return bendable;
-    }
     public static List<String> activeAbilities(Player player) {
         List<String> active = new ArrayList<>();
         for (CoreAbility ability : CoreAbility.getAbilitiesByInstances()) {
             Player abilityPlayer = ability.getPlayer();
-            if (abilityPlayer != null || abilityPlayer.getUniqueId().equals(player.getUniqueId())){
+            if (abilityPlayer != null && abilityPlayer.getUniqueId().equals(player.getUniqueId())){
                 active.add(ability.getName());
             }
         }
@@ -129,9 +103,11 @@ public class BendingManager {
         return cooldowns;
     }
     public static List<String> isRegionProtected(Player player) {
-        BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(player);
-        if (bPlayer == null) return List.of();
-        return List.of(String.valueOf(GeneralMethods.isRegionProtectedFromBuild(player, player.getLocation())));
+
+        final BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(player);
+        final CoreAbility boundAbility = bPlayer != null ? bPlayer.getBoundAbility() : null;
+        final boolean protectedState = RegionProtection.isRegionProtected(player, player.getLocation(), boundAbility);
+        return List.of(String.valueOf(protectedState));
     }
 }
 
