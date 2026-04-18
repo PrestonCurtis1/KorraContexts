@@ -71,7 +71,10 @@ contexts.add("KorraContexts:cooldown");*/
 
             if (key == null || key.equals("KorraContexts:")) {
                 KorraContexts.log.warning("Failed to load context from " + context.getClass().getName() + " as it does not have a valid key");
+                continue;
             }
+
+            KorraContexts.log.info("Loaded addon context: " + key + " (" + context.getClass().getName() + ")");
         }
     }
 

@@ -1,12 +1,11 @@
 package me.unprankable.korraContexts;
 
 import org.bukkit.plugin.Plugin;
-import sun.reflect.ReflectionFactory;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
+import java.lang.reflect.Constructor;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -100,17 +99,20 @@ public class AddonContextLoader<T> {
                         continue;
                     }
 
-                    final ReflectionFactory rf = ReflectionFactory.getReflectionFactory();
-                    final Constructor<?> objDef = parentClass.getDeclaredConstructor();
-                    final Constructor<?> intConstr = rf.newConstructorForSerialization(clazz, objDef);
+                    final Constructor<?> constructor = clazz.getDeclaredConstructor();
+                    constructor.setAccessible(true);
 
-                    final T loadable = (T) clazz.cast(intConstr.newInstance());
+                    final T loadable = (T) constructor.newInstance();
 
                     loadables.add(loadable);
                     final ContextLoadEvent<T> event = new ContextLoadEvent<T>(this.plugin, loadable, jarFile);
                     this.plugin.getServer().getPluginManager().callEvent(event);
 
+                    this.plugin.getLogger().info("Loaded addon context class: " + clazz.getName() + " from " + file.getName());
+
                 }
+            } catch (NoSuchMethodException e) {
+                this.plugin.getLogger().log(Level.WARNING, "Addon context class in " + file.getName() + " must have a no-argument constructor", e);
             } catch (Exception | Error e) {
                 e.printStackTrace();
                 this.plugin.getLogger().log(Level.WARNING, "Unknown cause");

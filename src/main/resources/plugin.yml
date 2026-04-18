@@ -6,7 +6,7 @@ depend: [ProjectKorra, LuckPerms]
 commands:
   korraContexts:
     description: Main command for KorraContexts plugin.
-    usage: /korraContexts
+    usage: /korracontexts listcontexts
     aliases: [kc]
 permissions:
   KorraContexts.admin:

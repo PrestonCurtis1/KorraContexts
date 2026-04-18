@@ -5,6 +5,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 import me.unprankable.korraContexts.hooks.LuckPermsHook;
+import me.unprankable.korraContexts.managers.ContextsManager;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.logging.Logger;
 
@@ -41,8 +43,22 @@ public final class KorraContexts extends JavaPlugin {
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (command.getName().equalsIgnoreCase("korracontexts")) {
+            if (args.length > 0 && args[0].equalsIgnoreCase("listcontexts")) {
+                sender.sendMessage("§6=== KorraContexts Contexts ===");
+                if (ContextsManager.contexts.isEmpty()) {
+                    sender.sendMessage("§cNo contexts are currently registered.");
+                } else {
+                    sender.sendMessage("§bRegistered contexts (§f" + ContextsManager.contexts.size() + "§b):");
+                    for (final ContextsManager.Context context : ContextsManager.contexts) {
+                        sender.sendMessage("§7- §f" + context.getKey());
+                    }
+                }
+                sender.sendMessage("§6==============================");
+                return true;
+            }
+
             sender.sendMessage("§6=== KorraContexts Info ===");
             sender.sendMessage("§bVersion: §f" + this.getDescription().getVersion());
             sender.sendMessage("§bDescription: §f" + this.getDescription().getDescription());
