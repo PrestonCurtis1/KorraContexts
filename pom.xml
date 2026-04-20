@@ -6,7 +6,7 @@
 
     <groupId>me.unprankable</groupId>
     <artifactId>korracontexts</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
     <packaging>jar</packaging>
 
     <name>KorraContexts</name>
