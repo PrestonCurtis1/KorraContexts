@@ -1,6 +1,0 @@
-CustomContexts:
-    - Example:
-        key: "player_name"
-        description: "Return players Name"
-        function: "return List.of(player.getName());"
-        potentialValues: "Bukkit.getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toList());"
