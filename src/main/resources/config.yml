@@ -1,0 +1,20 @@
+debug: false
+prefix: 'korracontexts:'
+disabled-contexts: # Use only the key part after the prefix (for example: "test")
+  - test
+  - example
+descriptions:
+  element: Returns the elements a player has. If the player has no elements, it will
+    return 'nonbender'. If the player has the Avatar element, it will also return
+    'avatar'.
+  sub_element: Returns the sub-elements a player has. If the player has no sub-elements,
+    it will return an empty list.
+  ability: Returns the abilities a player has currently bound. If the player has no
+    abilities bound, it will return an empty list.
+  active: Returns the abilities a player currently has active. If the player has no
+    abilities active, it will return an empty list.
+  cooldown: Returns the abilities a player currently has on cooldown. If the player
+    has no abilities on cooldown, it will return an empty list.
+  isregionprotected: Returns whether the player is currently in a region protected
+    by ProjectKorra's region system. If the player is in a protected region, it will
+    return 'true', otherwise it will return 'false'.
