@@ -1,12 +1,12 @@
 name: KorraContexts
-version: '1.0.2'
+version: '1.0.3'
 main: me.unprankable.korraContexts.KorraContexts
 api-version: '1.21'
 depend: [ProjectKorra, LuckPerms]
 commands:
   korraContexts:
     description: Main command for KorraContexts plugin.
-    usage: /korracontexts <listcontexts|context <name>>
+    usage: /korracontexts <listcontexts|context <name>|reload>
     aliases: [kc]
 permissions:
   KorraContexts.admin:

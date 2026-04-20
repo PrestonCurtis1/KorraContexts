@@ -52,6 +52,12 @@ public class ConfigManager {
 
         KorraContexts.debug("Config loaded");
     }
+
+    public void reload() {
+        load();
+        KorraContexts.debug("Config reloaded");
+    }
+
     public void save() {
         try {
             config.save(configFile);

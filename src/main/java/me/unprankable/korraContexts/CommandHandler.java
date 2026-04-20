@@ -17,7 +17,7 @@ import java.util.Set;
 
 public class CommandHandler implements CommandExecutor, TabCompleter {
     private final KorraContexts plugin;
-    private static final List<String> SUBCOMMANDS = List.of("listcontexts", "context");
+    private static final List<String> SUBCOMMANDS = List.of("listcontexts", "context", "reload");
 
     public CommandHandler(final KorraContexts plugin) {
         this.plugin = plugin;
@@ -61,6 +61,21 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
             sender.sendMessage("§bAuthor: §f" + context.getAuthor());
             sender.sendMessage("§bDescription: §f" + context.getDescription());
             sender.sendMessage("§6====================");
+            return true;
+        }
+
+        if (args.length > 0 && args[0].equalsIgnoreCase("reload")) {
+            if (!sender.hasPermission("KorraContexts.admin")) {
+                sender.sendMessage("§cYou do not have permission to use this command.");
+                return true;
+            }
+
+            KorraContexts.getConfigManager().reload();
+            final ContextsManager contextsManager = new ContextsManager();
+            contextsManager.reloadContexts();
+
+            sender.sendMessage("§aKorraContexts reloaded.");
+            sender.sendMessage("§7Loaded contexts: §f" + ContextsManager.contexts.size());
             return true;
         }
 

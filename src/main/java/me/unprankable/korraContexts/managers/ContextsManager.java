@@ -10,12 +10,14 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class ContextsManager {
     public static List<Context> contexts = new ArrayList<>();
     public static List<String> disabledContexts = KorraContexts.getConfigManager().getConfig().getStringList("disabled-contexts");
+
     public void registerContexts() {
         new Context("element", player -> {
             return BendingManager.getElements(player);
@@ -37,7 +39,14 @@ public class ContextsManager {
         }, List.of("true", "false"), "Unprankable").setDescription("Returns whether the player is currently in a region protected by ProjectKorra's region system. If the player is in a protected region, it will return 'true', otherwise it will return 'false'.");
         registerAddonContexts("/contexts");
     }
-
+    public void reloadContexts() {
+        contexts.clear();
+        disabledContexts = KorraContexts.getConfigManager().getConfig().getStringList("disabled-contexts")
+                .stream()
+                .map(key -> key.toLowerCase(Locale.ROOT))
+                .collect(Collectors.toList());
+        registerContexts();
+    }
     public static void registerAddonContexts(final String folder){
         final KorraContexts plugin = KorraContexts.plugin;
         final File path = new File(plugin.getDataFolder().toString() + folder);
