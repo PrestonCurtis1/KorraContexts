@@ -137,5 +137,5 @@ The project uses `maven-shade-plugin` during `package`.
 
 - Group: `me.unprankable`
 - Artifact: `korracontexts`
-- Version (pom): `1.0.2`
+- Version (pom): `1.0.4`
 - Website: `https://github.com/PrestonCurtis1/KorraContexts`
